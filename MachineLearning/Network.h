@@ -15,8 +15,10 @@ class Network
 public:
 	Network(vector<int> topology);
 	void setCurrentInput(vector<double> input);
+	void setCurrentTarget(vector<double> target);
 	void feedForward();
 	void printToConsole();
+	void setErrors();
 
 	Matrix* getNeuronMatrix(int index);
 	Matrix* getActivatedNeuronMatrix(int index);
@@ -25,6 +27,9 @@ public:
 
 	void setNeuronValue(int indexLayer, int indexNeuron, double val);
 
+	double getTotalError() { return this->error; }
+	vector<double> getErrors() { return this->errors; }
+
 private:
 	int topologySize;
 
@@ -32,5 +37,9 @@ private:
 	vector<Layer*> layers;
 	vector<Matrix*> weightMatrices;
 	vector<double> input;
+	vector<double> target;
+	double error;
+	vector<double> errors;
+	vector<double> historicalerrors;
 };
 #endif // !_NETWORK_HPP_

@@ -27,6 +27,11 @@ void Network::setCurrentInput(vector<double> input)
 	}
 }
 
+void Network::setCurrentTarget(vector<double> target)
+{
+	this->target = target;
+}
+
 void Network::feedForward()
 {
 	for (unsigned int i = 0; i < (this->layers.size() - 1); i++)
@@ -75,6 +80,35 @@ void Network::printToConsole()
 			cout << "======================\n";
 		}
 	}
+}
+
+void Network::setErrors()
+{
+	int outputLayerIndex = this->layers.size() - 1;
+	double tempErr = 0.0;
+
+	if (this->target.size() == 0)
+	{
+		cerr << "No target for this neural network\n";
+		assert(false);
+	}
+	if (this->target.size() != this->layers.at(outputLayerIndex)->getNeurons().size())
+	{
+		cerr << "Target size is not the same as output layer size: " << this->layers.at(outputLayerIndex)->getNeurons().size() << endl;
+		assert(false);
+	}
+
+	this->error = 0.0;
+	this->errors.clear();
+	vector<Neuron*>outputNeurons = this->layers.at(outputLayerIndex)->getNeurons();
+	for (size_t i = 0; i < target.size(); i++)
+	{
+		tempErr = (outputNeurons.at(i)->getActivatedVal() - target.at(i));
+		errors.push_back(tempErr);
+		this->error += tempErr;
+	}
+
+	historicalerrors.push_back(this->error);
 }
 
 Matrix* Network::getNeuronMatrix(int index)

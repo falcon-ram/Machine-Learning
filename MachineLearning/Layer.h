@@ -15,6 +15,7 @@ public:
 	// Constructor
 	Layer(int size);
 	void setValue(int neuron, double val);
+	vector<Neuron*> getNeurons();
 
 	Matrix *matrixifyVals();
 	Matrix *matrixifyActivatedVals();
