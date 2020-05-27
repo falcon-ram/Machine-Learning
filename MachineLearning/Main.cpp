@@ -1,3 +1,7 @@
+// Machine learning tutorial from:
+// https://www.youtube.com/watch?v=PQo78WNGiow&list=PL2-7U6BzddIYBOl98DDsmpXiTcj1ojgJG
+// Live Coding 2: C++ Neural Network
+// - devlogs
 #include <iostream>
 #include "Neuron.h"
 #include "Layer.h"
