@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include <vector>
+#include <algorithm>
 #include "Matrix.h"
 #include "Layer.h"
 #include "MultiplyMatrix.h"
@@ -17,6 +18,7 @@ public:
 	void setCurrentInput(vector<double> input);
 	void setCurrentTarget(vector<double> target);
 	void feedForward();
+	void backPropagation();
 	void printToConsole();
 	void setErrors();
 
@@ -36,6 +38,7 @@ private:
 	vector<int> topology;
 	vector<Layer*> layers;
 	vector<Matrix*> weightMatrices;
+	vector<Matrix*> gradientMatrices;
 	vector<double> input;
 	vector<double> target;
 	double error;

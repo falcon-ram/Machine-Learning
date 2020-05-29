@@ -17,17 +17,16 @@ int main(int argc, char** argv) {
 	Network* nn = new Network(topology);
 	nn->setCurrentInput(input);
 	nn->setCurrentTarget(input);
-	nn->feedForward();
-	nn->setErrors();
-	nn->printToConsole();
-
-	vector<double> errors = nn->getErrors();
-	for (size_t i = 0; i < errors.size(); i++)
+	
+	// Training process
+	for (int i = 0; i < 100; i++)
 	{
-		cout << "Error " << i << " : " << errors.at(i) << endl;
+		cout << "Epoch: " << i << endl;
+		nn->feedForward();
+		nn->setErrors();
+		cout << "Total error: " << nn->getTotalError() << endl;
+		nn->backPropagation();
 	}
-	cout << endl;
-	cout << "Total error: " << nn->getTotalError() << endl;
 
 	return 0;
 }

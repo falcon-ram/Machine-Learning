@@ -58,9 +58,30 @@ void Matrix::setValue(int r, int c, double v)
 	this->values.at(r).at(c) = v;
 }
 
-double Matrix::getValue(int r, int c)
+double Matrix::getValue(int r, int c) const
 {
 	return this->values.at(r).at(c);
+}
+
+Matrix Matrix::operator-(const Matrix b)
+{
+	Matrix* result = new Matrix(this->numRows, this->numCols, false);
+	if ((this->numCols != b.numCols) || (this->numRows != b.numRows))
+	{
+		cerr << "Matrices are not the same size\n";
+		assert(false);
+	}
+	double resVal = 0.0;
+	for (int i = 0; i < this->numRows; i++)
+	{
+		for (int j = 0; j < this->numCols; j++)
+		{
+			resVal = this->getValue(i, j) - b.getValue(i, j);
+			result->setValue(i, j, resVal);
+		}
+
+	}
+	return *result;
 }
 
 double Matrix::getRandomNumber()
