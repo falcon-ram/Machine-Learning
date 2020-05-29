@@ -193,10 +193,11 @@ void Network::setErrors()
 	for (size_t i = 0; i < target.size(); i++)
 	{
 		tempErr = (outputNeurons.at(i)->getActivatedVal() - target.at(i));
-		errors.push_back(tempErr);
-		this->error += tempErr;
-	}
 
+		errors.push_back(tempErr);
+		this->error += pow(tempErr,2);
+	}
+	this->error = 0.5 * this->error;
 	historicalerrors.push_back(this->error);
 }
 
@@ -223,4 +224,33 @@ Matrix* Network::getWeightMatrix(int index)
 void Network::setNeuronValue(int indexLayer, int indexNeuron, double val)
 {
 	this->layers.at(indexLayer)->setValue(indexNeuron, val);
+}
+
+void Network::printInputToConsole()
+{
+	for (size_t i = 0; i < this->input.size(); i++)
+	{
+		cout << this->input.at(i) << "\t";
+	}
+	cout << endl;
+}
+
+void Network::printOutputToConsole()
+{
+	int indexOfOutputLayer = this->layers.size() - 1;
+	Matrix* outputValues = this->layers.at(indexOfOutputLayer)->matrixifyActivatedVals();
+	for (int c = 0; c < outputValues->getNumCols(); c++)
+	{
+		cout << outputValues->getValue(0, c) << "\t";
+	}
+	cout << endl;
+}
+
+void Network::printTargetToConsole()
+{
+	for (size_t i = 0; i < this->target.size(); i++)
+	{
+		cout << this->target.at(i) << "\t";
+	}
+	cout << endl;
 }

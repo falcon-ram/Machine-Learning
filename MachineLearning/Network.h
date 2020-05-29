@@ -32,6 +32,10 @@ public:
 	double getTotalError() { return this->error; }
 	vector<double> getErrors() { return this->errors; }
 
+	void printInputToConsole();
+	void printOutputToConsole();
+	void printTargetToConsole();
+
 private:
 	int topologySize;
 
